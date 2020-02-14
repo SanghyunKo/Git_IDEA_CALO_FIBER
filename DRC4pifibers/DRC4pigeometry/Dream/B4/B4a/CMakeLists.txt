@@ -6,6 +6,8 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(B4a)
 
+set(HEPMC_DIR "$ENV{HEPMC_DIR}")
+
 #----------------------------------------------------------------------------
 # Find Geant4 package, activating all available UI and Vis drivers by default
 # You can set WITH_GEANT4_UIVIS to OFF via the command line or ccmake/cmake-gui
@@ -28,7 +30,7 @@ include(${Geant4_USE_FILE})
 #----------------------------------------------------------------------------
 # Find HepMC (required package)
 #
-find_package(HepMC REQUIRED)
+#find_package(HepMC REQUIRED)
 
 list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS})
 find_package(ROOT REQUIRED COMPONENTS RIO EG)
@@ -40,9 +42,9 @@ include_directories(${ROOT_INCLUDE_DIRS})
 # Locate sources and headers for this project
 # NB: headers are included so they will show up in IDEs
 #
-include_directories(${PROJECT_SOURCE_DIR}/include 
+include_directories(${PROJECT_SOURCE_DIR}/include
                     ${Geant4_INCLUDE_DIR}
-                    ${HEPMC_INCLUDE_DIR})
+                    ${HEPMC_DIR}/include)
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 
@@ -51,8 +53,8 @@ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.hh)
 #
 add_executable(exampleB4a exampleB4a.cc ${sources} ${headers})
 target_link_libraries(exampleB4a ${Geant4_LIBRARIES}
-                      ${HEPMC_LIBRARIES} ${HEPMC_FIO_LIBRARIES}
-                      ${PYTHIA6_LIBRARIES} ${ROOT_LIBRARIES} gfortran)
+                      ${HEPMC_DIR}/lib/libHepMC.so ${HEPMC_DIR}/lib/libHepMCfio.so
+                      ${ROOT_LIBRARIES} gfortran)
 
 #----------------------------------------------------------------------------
 # Copy all scripts to the build directory, i.e. the directory in which we
@@ -69,7 +71,7 @@ set(EXAMPLEB4A_SCRIPTS
   run1.mac
   run2.mac
   vis.mac
-  )
+)
 
 foreach(_script ${EXAMPLEB4A_SCRIPTS})
   configure_file(
