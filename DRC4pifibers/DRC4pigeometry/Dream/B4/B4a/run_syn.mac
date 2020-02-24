@@ -1,0 +1,20 @@
+# Change the default number of workers (in multi-threading mode) 
+/run/numberOfThreads 1
+#
+# Initialize kernel
+/run/initialize
+#
+# Kinematics: 
+#
+/gps/particle e-
+/gps/energy 20 GeV
+/gps/position 0 -4.363766 -6.546 cm
+/gps/pos/type Plane
+/gps/pos/shape Square
+/gps/pos/halfx 0.5 cm
+/gps/ang/type beam1d
+/gps/direction 0.999199957 0.0174524 0.03598416
+#
+/run/beamOn 3000
+
+
