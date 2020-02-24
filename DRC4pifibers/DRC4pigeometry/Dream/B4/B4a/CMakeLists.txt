@@ -6,6 +6,9 @@
 cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
 project(B4a)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 set(HEPMC_DIR "$ENV{HEPMC_DIR}")
 
 #----------------------------------------------------------------------------
@@ -71,6 +74,8 @@ set(EXAMPLEB4A_SCRIPTS
   run1.mac
   run2.mac
   vis.mac
+  run_ref.mac
+  run_syn.mac
 )
 
 foreach(_script ${EXAMPLEB4A_SCRIPTS})
